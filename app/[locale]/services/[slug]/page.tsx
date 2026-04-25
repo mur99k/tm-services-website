@@ -122,24 +122,24 @@ export default async function ServiceDetailPage({
       </section>
 
       {/* Content Section */}
-      <section className="py-20 lg:py-32 bg-white">
+      <section className="py-16 lg:py-24 bg-white">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="grid lg:grid-cols-3 gap-12">
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
             {/* Main Content */}
-            <div className="lg:col-span-2">
+            <div className="flex-1 order-2 lg:order-1">
               {/* Process Steps */}
-              <div className="mb-16">
+              <div className="mb-12">
                 <h2 className="text-2xl md:text-3xl font-bold text-[#002D54] mb-8">
                   {tDetails('process')}
                 </h2>
-                <div className="space-y-6">
+                <div className="space-y-4">
                   {steps.map((step, index) => (
-                    <div key={index} className="flex gap-4">
-                      <div className="w-12 h-12 bg-[#6CC0E1] rounded-xl flex items-center justify-center shrink-0 text-[#001A33] font-bold">
+                    <div key={index} className="flex gap-4 items-start">
+                      <div className="w-10 h-10 md:w-12 md:h-12 bg-[#6CC0E1] rounded-xl flex items-center justify-center shrink-0 text-[#001A33] font-bold text-sm md:text-base">
                         {index + 1}
                       </div>
-                      <div className="flex-1 bg-[#F4F7F9] rounded-xl p-5">
-                        <p className="text-[#1A1A1A] font-medium">{step}</p>
+                      <div className="flex-1 bg-[#F4F7F9] rounded-xl p-4 md:p-5">
+                        <p className="text-[#1A1A1A] font-medium text-sm md:text-base">{step}</p>
                       </div>
                     </div>
                   ))}
@@ -151,7 +151,7 @@ export default async function ServiceDetailPage({
                 <h2 className="text-2xl md:text-3xl font-bold text-[#002D54] mb-8">
                   {tDetails('features')}
                 </h2>
-                <div className="grid sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
                   {features.map((feature, index) => (
                     <div
                       key={index}
@@ -167,31 +167,31 @@ export default async function ServiceDetailPage({
               </div>
             </div>
 
-            {/* Sidebar */}
-            <div className="lg:col-span-1">
+            {/* Sidebar - Shows first on mobile, sidebar on desktop */}
+            <div className="w-full lg:w-80 xl:w-96 shrink-0 order-1 lg:order-2">
               {/* CTA Card */}
-              <div className="bg-[#002D54] rounded-2xl p-8 mb-8 sticky top-24">
-                <h3 className="text-xl font-bold text-white mb-4">
+              <div className="bg-[#002D54] rounded-2xl p-6 md:p-8 lg:sticky lg:top-24">
+                <h3 className="text-xl font-bold text-white mb-3">
                   {locale === 'ar' ? 'احصل على عرض سعر الآن' : 'Get a Quote Now'}
                 </h3>
-                <p className="text-white/70 text-sm mb-6">
+                <p className="text-white/70 text-sm mb-5">
                   {locale === 'ar'
                     ? 'تواصل معنا للحصول على استشارة مجانية وعرض سعر مخصص'
                     : 'Contact us for a free consultation and customized quote'}
                 </p>
                 <Link
                   href="/contact"
-                  className="block w-full py-4 bg-[#6CC0E1] text-[#001A33] font-bold rounded-xl text-center hover:bg-[#5AB0D1] transition-colors"
+                  className="block w-full py-3.5 bg-[#6CC0E1] text-[#001A33] font-bold rounded-xl text-center hover:bg-[#5AB0D1] transition-colors"
                 >
                   {tDetails('getQuote')}
                 </Link>
-                <div className="mt-6 pt-6 border-t border-white/20">
+                <div className="mt-5 pt-5 border-t border-white/20">
                   <p className="text-white/60 text-sm mb-2">
                     {locale === 'ar' ? 'أو اتصل بنا مباشرة' : 'Or call us directly'}
                   </p>
                   <a
                     href="tel:+966126501721"
-                    className="text-[#6CC0E1] font-bold text-xl hover:text-[#5AB0D1] transition-colors"
+                    className="text-[#6CC0E1] font-bold text-lg hover:text-[#5AB0D1] transition-colors"
                     dir="ltr"
                   >
                     +966 12 6501721
@@ -199,8 +199,8 @@ export default async function ServiceDetailPage({
                 </div>
               </div>
 
-              {/* Other Services */}
-              <div>
+              {/* Other Services - Hidden on mobile, visible on desktop */}
+              <div className="hidden lg:block mt-8">
                 <h3 className="text-lg font-bold text-[#002D54] mb-4">
                   {tDetails('otherServices')}
                 </h3>
@@ -209,9 +209,9 @@ export default async function ServiceDetailPage({
                     <Link
                       key={otherService.slug}
                       href={`/services/${otherService.slug}`}
-                      className="flex items-center gap-4 bg-[#F4F7F9] rounded-xl p-4 hover:bg-[#6CC0E1]/10 transition-colors group"
+                      className="flex items-center gap-4 bg-[#F4F7F9] rounded-xl p-3 hover:bg-[#6CC0E1]/10 transition-colors group"
                     >
-                      <div className="relative w-16 h-16 rounded-lg overflow-hidden shrink-0">
+                      <div className="relative w-14 h-14 rounded-lg overflow-hidden shrink-0">
                         <Image
                           src={otherService.image}
                           alt={t(`list.${otherService.slug}.title`)}
@@ -219,17 +219,49 @@ export default async function ServiceDetailPage({
                           className="object-cover"
                         />
                       </div>
-                      <div className="flex-1">
-                        <h4 className="font-semibold text-[#002D54] group-hover:text-[#6CC0E1] transition-colors">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-semibold text-[#002D54] group-hover:text-[#6CC0E1] transition-colors text-sm truncate">
                           {t(`list.${otherService.slug}.title`)}
                         </h4>
                       </div>
-                      <ArrowIcon className="w-5 h-5 text-[#5A6A7A] group-hover:text-[#6CC0E1] transition-colors" />
+                      <ArrowIcon className="w-4 h-4 text-[#5A6A7A] group-hover:text-[#6CC0E1] transition-colors shrink-0" />
                     </Link>
                   ))}
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Other Services - Mobile Only */}
+      <section className="py-12 bg-[#F4F7F9] lg:hidden">
+        <div className="container mx-auto px-4">
+          <h3 className="text-xl font-bold text-[#002D54] mb-6">
+            {tDetails('otherServices')}
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {otherServices.map((otherService) => (
+              <Link
+                key={otherService.slug}
+                href={`/services/${otherService.slug}`}
+                className="flex items-center gap-3 bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-all group"
+              >
+                <div className="relative w-12 h-12 rounded-lg overflow-hidden shrink-0">
+                  <Image
+                    src={otherService.image}
+                    alt={t(`list.${otherService.slug}.title`)}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h4 className="font-semibold text-[#002D54] group-hover:text-[#6CC0E1] transition-colors text-sm">
+                    {t(`list.${otherService.slug}.title`)}
+                  </h4>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
